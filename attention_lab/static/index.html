@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Local NFL route and defensive attention simulator">
+  <title>Attention Lab · Route Simulator</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/core.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Attention Lab home"><span class="brand-mark">A</span><span>ATTENTION LAB<small>Route & defensive attention simulator</small></span></a>
+    <div class="local-indicator"><i></i> LOCAL DATA · 2021 SEASON</div>
+  </header>
+  <main>
+    <section class="intro"><div><span class="eyebrow">PLAY / REPLAY / WHAT IF</span><h1>Change a route. See attention shift.</h1></div><span class="cohort" id="cohort-label">Loading game data…</span></section>
+    <section class="play-picker" aria-label="Choose a play">
+      <label>Game<select id="game-select" disabled aria-label="Game"></select></label>
+      <label>Completed-pass play<select id="play-select" disabled aria-label="Completed-pass play"></select></label>
+      <div class="play-id" id="play-id">—</div>
+    </section>
+    <div id="error" role="alert" hidden></div>
+    <div id="loading" class="loading">Preparing field and attention data…</div>
+    <div id="workspace" hidden>
+      <section class="workspace-grid">
+        <div class="stage-column">
+          <section class="field-panel">
+            <div class="panel-heading"><div><span class="eyebrow" id="matchup">FIELD VIEW</span><h2 id="field-title">Player positions & attention</h2></div><span class="mode-tag" id="mode-tag">Observed replay</span></div>
+            <div id="field" class="field" aria-label="Field: click an offensive player to select them, then drag to choose a direction"></div>
+            <div class="field-legend"><span><i class="dot offense"></i>Offense</span><span><i class="dot defense"></i>Defense</span><span><i class="dot target"></i>Focus player</span><span><i class="dash"></i>Original position / attention</span><span>Thicker lines = more attention</span></div>
+            <div class="timeline">
+              <button id="play-button" class="primary icon-button" type="button" aria-label="Play replay">▶</button>
+              <div class="time-track"><div class="time-labels"><span id="time-label">After snap: 0.0 s</span><span id="end-label">Before release</span></div><input id="timeline" type="range" min="0" max="29" value="0" step="1" aria-label="Replay time"></div>
+              <button id="step-back" class="quiet icon-button" type="button" aria-label="Previous frame">‹</button><button id="step-forward" class="quiet icon-button" type="button" aria-label="Next frame">›</button>
+            </div>
+            <div class="field-status" id="field-status">Select an offensive player, then drag outward to choose a direction.</div>
+          </section>
+          <section class="chart-panel"><div class="panel-heading"><div><span class="eyebrow">ATTENTION OVER TIME</span><h2>Total attention over time</h2></div><div class="chart-legend"><span><i class="line original"></i>Original</span><span><i class="line simulated"></i>Simulated</span></div></div><div id="chart"></div></section>
+          <details class="description"><summary>Play description & model assumptions</summary><p id="play-description"></p><p>Model: softmax(−distance / 5 + 2 × orientation alignment), with temperature 1. Weights are normalized across receiving candidates. Total attention is the sum of weights from all 11 defenders.</p><p>The selected player moves in a straight line at constant speed from the branch time and stops at the field boundary. All other players and the ball follow observed trajectories. This isolates route geometry; it does not predict defensive reactions or reception outcomes.</p></details>
+        </div>
+        <aside class="controls-column">
+          <section class="scenario-panel">
+            <div class="panel-heading"><div><span class="eyebrow">ROUTE SANDBOX</span><h2>Try a different route</h2></div><span class="step-number">01</span></div>
+            <label class="control-label">Observe attention on<select id="focus-select"></select></label>
+            <label class="control-label">Offensive player to reroute<select id="mover-select"></select></label>
+            <button id="anchor-button" class="primary wide" type="button">Branch from this frame</button>
+            <div class="anchor-info" id="anchor-info">Choose a time, then set the branch point.</div>
+            <label class="control-label">Direction <span id="angle-label">0° · Forward</span><input id="angle" type="range" min="-180" max="180" step="1" value="0"></label>
+            <div class="direction-presets" aria-label="Direction presets"><button type="button" data-angle="-90">← Left</button><button type="button" data-angle="0">↑ Forward</button><button type="button" data-angle="90">Right →</button></div>
+            <label class="control-label">Speed <span id="speed-label">5.5 yd/s</span><input id="speed" type="range" min="0" max="12" step="0.1" value="5.5"></label>
+            <label class="control-label">Duration <span id="horizon-label">1.5 s</span><input id="horizon" type="range" min="0.1" max="4" step="0.1" value="1.5"></label>
+            <div class="button-row"><button id="clear-button" class="secondary" type="button" disabled>Clear scenario</button><button id="export-button" class="quiet" type="button" disabled>Export JSON</button></div>
+            <div class="candidate-note" id="candidate-note" hidden></div>
+          </section>
+          <section class="comparison-panel">
+            <div class="panel-heading"><div><span class="eyebrow">SAME FRAME, TWO ROUTES</span><h2>Attention comparison</h2></div><span class="step-number">02</span></div>
+            <div class="comparison-name" id="comparison-name">—</div>
+            <div class="metrics"><div><span>Original</span><strong id="baseline-total">—</strong></div><div><span>Simulated</span><strong id="simulated-total">—</strong></div><div><span>Delta</span><strong id="delta-total">—</strong></div></div>
+            <p class="metric-note">Sum of all 11 defenders’ weights, from 0 to 11.</p>
+            <table class="defender-table"><thead><tr><th>Defender</th><th>Original</th><th>Sim.</th><th>Change</th></tr></thead><tbody id="defender-body"></tbody></table>
+          </section>
+        </aside>
+      </section>
+    </div>
+  </main>
+  <footer>ATTENTION LAB <span>Distance × Orientation × Softmax · Geometric attention experiments</span></footer>
+</body>
+</html>

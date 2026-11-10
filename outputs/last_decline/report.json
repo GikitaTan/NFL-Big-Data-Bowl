@@ -1,0 +1,30 @@
+{
+  "cohort": 4465,
+  "withDecline": 3617,
+  "withoutDecline": 848,
+  "statuses": {
+    "attributed": 3617,
+    "no_significant_decline": 848
+  },
+  "mainAttractorCountDistribution": {
+    "2": 1969,
+    "3": 719,
+    "1": 924,
+    "4": 5
+  },
+  "topAttractorPositions": {
+    "WR": 1424,
+    "TE": 892,
+    "RB": 1242,
+    "FB": 55,
+    "QB": 3,
+    "C": 1
+  },
+  "window": "last significant declining leg before pass release, including an earlier decline followed by a rise",
+  "endpointSmoothingFrames": 5,
+  "majorCumulativeScoreShare": 0.8,
+  "score": "sum_j max(0, gain_on_teammate_j) * max(0, loss_on_receiver_j)",
+  "scoreShareMeaning": "fraction of total transfer score, not fraction of attention caused by a teammate",
+  "topAttractorTies": "all tied maxima retained",
+  "sharedScoreCaution": "multiple receivers can gain from other candidates too; no conserved flow or causality"
+}

@@ -1,0 +1,21 @@
+{
+  "completedPlays": 60,
+  "acceptedPlays": 1,
+  "excludedPlays": 59,
+  "exclusionReasons": {
+    "missing_pass_outcome_caught": 59
+  },
+  "attentionConfig": {
+    "distance_scale": 5.0,
+    "direction_weight": 2.0,
+    "temperature": 1.0,
+    "direction_source": "o"
+  },
+  "maxCatchDistanceYards": 2.0,
+  "ambiguityMarginYards": 0.1,
+  "snapOffsetFrames": 3,
+  "assumedTrackingHz": 10,
+  "scoreDirection": "target B loses, attractor A gains",
+  "summaryTransfer": "sum of all non-target attractor scores",
+  "eventPolicy": "prefer annotated events; use autoevent only if annotated event absent"
+}

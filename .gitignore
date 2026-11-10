@@ -1,0 +1,13 @@
+# Raw data directories and downloaded dataset archive
+data/
+nfl-big-data-bowl-regional-event-data-main.zip
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# macOS metadata
+.DS_Store

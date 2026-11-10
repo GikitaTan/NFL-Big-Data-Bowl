@@ -1,0 +1,25 @@
+{
+  "completedPlays": 4620,
+  "acceptedPlays": 21,
+  "excludedPlays": 4599,
+  "exclusionReasons": {
+    "missing_pass_outcome_caught": 4579,
+    "missing_ball_snap": 15,
+    "ambiguous_pass_forward": 1,
+    "catch_distance_too_large": 2,
+    "missing_pass_forward": 2
+  },
+  "attentionConfig": {
+    "distance_scale": 5.0,
+    "direction_weight": 2.0,
+    "temperature": 1.0,
+    "direction_source": "o"
+  },
+  "maxCatchDistanceYards": 2.0,
+  "ambiguityMarginYards": 0.1,
+  "snapOffsetFrames": 3,
+  "assumedTrackingHz": 10,
+  "scoreDirection": "target B loses, attractor A gains",
+  "summaryTransfer": "sum of all non-target attractor scores",
+  "eventPolicy": "prefer annotated events; use autoevent only if annotated event absent"
+}

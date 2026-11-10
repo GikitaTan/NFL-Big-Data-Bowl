@@ -1,0 +1,41 @@
+{
+  "pythonTests": 28,
+  "javascriptAssertions": 1257,
+  "referencePlays": [
+    {
+      "gameId": "2021101700",
+      "playId": "1621",
+      "playDirection": "right"
+    },
+    {
+      "gameId": "2021090900",
+      "playId": "137",
+      "playDirection": "left"
+    }
+  ],
+  "browserChecks": [
+    "catalog 122 games / 4465 valid plays",
+    "real replay and scenario comparison",
+    "offensive non-route player added to both candidate sets",
+    "change game and play",
+    "direct player drag creates scenario",
+    "desktop 1280px and narrow 360px / 320px layouts without horizontal overflow",
+    "no browser console errors"
+  ],
+  "verifiedExample": {
+    "gameId": "2021101700",
+    "playId": "1621",
+    "mover": "James Robinson",
+    "branchSeconds": 0.3,
+    "angleDegrees": 90,
+    "speedYardsPerSecond": 5.5,
+    "horizonSeconds": 1.5,
+    "observedAtSeconds": 1.8,
+    "focus": "Laviska Shenault",
+    "baselineDisplayed": 2.97,
+    "simulatedDisplayed": 3.59,
+    "deltaDisplayed": 0.61
+  },
+  "localUrl": "http://127.0.0.1:8765",
+  "assumption": "Only selected offensive player moves counterfactually; all other players and ball follow observed trajectories."
+}

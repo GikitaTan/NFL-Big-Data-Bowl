@@ -1,0 +1,99 @@
+{
+  "counts": {
+    "examined": 4579,
+    "ends_after_release": 4577,
+    "ends_at_release": 2
+  },
+  "lastFrameMinusReleaseFrame": {
+    "5": 2952,
+    "3": 169,
+    "4": 1451,
+    "2": 5,
+    "0": 2
+  },
+  "eventPlayCounts": {
+    "autoevent_ballsnap": 1976,
+    "pass_forward": 4571,
+    "ball_snap": 4578,
+    "autoevent_passforward": 2214,
+    "line_set": 67,
+    "pass_arrived": 300,
+    "play_action": 1075,
+    "autoevent_passinterrupted": 79,
+    "fumble_offense_recovered": 4,
+    "fumble": 4,
+    "man_in_motion": 99,
+    "shift": 74,
+    "handoff": 5,
+    "penalty_flag": 1,
+    "pass_tipped": 3,
+    "first_contact": 1
+  },
+  "examples": [
+    {
+      "gameId": "2021090900",
+      "playId": "137",
+      "lastFrame": 37,
+      "releaseFrames": [
+        32
+      ],
+      "events": [
+        "autoevent_ballsnap",
+        "ball_snap",
+        "pass_forward"
+      ]
+    },
+    {
+      "gameId": "2021090900",
+      "playId": "187",
+      "lastFrame": 31,
+      "releaseFrames": [
+        28
+      ],
+      "events": [
+        "autoevent_passforward",
+        "ball_snap",
+        "line_set",
+        "pass_forward"
+      ]
+    },
+    {
+      "gameId": "2021090900",
+      "playId": "410",
+      "lastFrame": 27,
+      "releaseFrames": [
+        22
+      ],
+      "events": [
+        "ball_snap",
+        "pass_arrived",
+        "pass_forward"
+      ]
+    },
+    {
+      "gameId": "2021090900",
+      "playId": "456",
+      "lastFrame": 36,
+      "releaseFrames": [
+        31
+      ],
+      "events": [
+        "ball_snap",
+        "pass_forward"
+      ]
+    },
+    {
+      "gameId": "2021090900",
+      "playId": "480",
+      "lastFrame": 45,
+      "releaseFrames": [
+        40
+      ],
+      "events": [
+        "autoevent_passforward",
+        "ball_snap",
+        "pass_forward"
+      ]
+    }
+  ]
+}
