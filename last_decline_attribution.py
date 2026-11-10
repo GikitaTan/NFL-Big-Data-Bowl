@@ -15,6 +15,7 @@ from pathlib import Path
 from attention_transfer import transfer_score, write_csv
 from defensive_attention import frame_attention, iter_plays, read_csv
 from receiver_trend_distribution import classify, smooth
+from project_paths import data_directory
 
 
 def last_decline(values):
@@ -67,7 +68,7 @@ def attribution(start, end, target, major_share=.8):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--data-dir',type=Path,default=Path(__file__).parent/'nfl-big-data-bowl-regional-event-data-main/data')
+    parser.add_argument('--data-dir',type=Path,default=data_directory())
     parser.add_argument('--series',type=Path,default=Path('outputs/receiver_trends/series.jsonl'))
     parser.add_argument('--output-dir',type=Path,default=Path('outputs/last_decline'))
     parser.add_argument('--major-share',type=float,default=.8)

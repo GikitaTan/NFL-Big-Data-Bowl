@@ -8,6 +8,7 @@ import math
 from pathlib import Path
 
 from defensive_attention import AttentionConfig, frame_attention, iter_plays, number, read_csv, valid_position
+from project_paths import data_directory
 
 
 class ExcludedPlay(ValueError):
@@ -146,7 +147,7 @@ def load_dataframe(path='outputs/attention_transfer/plays.csv'):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--data-dir', type=Path, default=Path(__file__).parent / 'nfl-big-data-bowl-regional-event-data-main/data')
+    parser.add_argument('--data-dir', type=Path, default=data_directory())
     parser.add_argument('--game-id')
     parser.add_argument('--play-id', type=int)
     parser.add_argument('--output-dir', type=Path, default=Path('outputs/attention_transfer'))

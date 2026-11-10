@@ -1,11 +1,17 @@
 import unittest
+from pathlib import Path
+import tempfile
+from unittest.mock import patch
 
 from attention_lab.server import Repository
+from project_paths import ROOT, data_directory
 
 
 class AttentionLabDataTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        if not (data_directory()/'games.csv').is_file():
+            raise unittest.SkipTest('Integration tests require the separately downloaded NFL dataset')
         cls.repository = Repository()
 
     def test_catalog_has_entire_valid_cohort(self):
@@ -33,6 +39,13 @@ class AttentionLabDataTests(unittest.TestCase):
         for game,play in [('999','1'),('../','../../'),('2021090900','97')]:
             with self.assertRaises(KeyError):
                 self.repository.get_play(game,play)
+
+    def test_clean_checkout_uses_bundled_cohort_without_outputs(self):
+        with tempfile.TemporaryDirectory() as tmp,patch('attention_lab.server.ROOT',Path(tmp)):
+            repository=Repository(data_directory(),ROOT/'examples/results/receiver_cohort.csv')
+            self.assertEqual(repository.last_decline,{})
+            self.assertEqual(repository.catalog()['playCount'],4465)
+            self.assertEqual(repository.get_play('2021101700','1621')['suggestedMover'],'52733')
 
 
 if __name__=='__main__':

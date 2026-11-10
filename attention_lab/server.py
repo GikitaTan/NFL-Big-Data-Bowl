@@ -13,16 +13,20 @@ import webbrowser
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from defensive_attention import iter_plays, number, read_csv, valid_position
+from project_paths import data_directory, result_file
 
 
 class Repository:
-    def __init__(self, data_dir=None):
-        self.data_dir = Path(data_dir or ROOT/'nfl-big-data-bowl-regional-event-data-main/data')
+    def __init__(self, data_dir=None, cohort_path=None):
+        self.data_dir = data_directory(data_dir)
         self.games = {r['gameId']: r for r in read_csv(self.data_dir/'games.csv')}
         self.plays = {(r['gameId'],r['playId']):r for r in read_csv(self.data_dir/'plays.csv')}
         self.players = {r['nflId']:r for r in read_csv(self.data_dir/'players.csv')}
-        self.cohort = {(r['gameId'],r['playId']):r for r in read_csv(ROOT/'outputs/receiver_trends/classified.csv')}
-        self.last_decline = {(r['gameId'],r['playId']):r for r in read_csv(ROOT/'outputs/last_decline/plays.csv')}
+        cohort_path = cohort_path or result_file('outputs/receiver_trends/classified.csv','receiver_cohort.csv')
+        self.cohort = {(r['gameId'],r['playId']):r for r in read_csv(cohort_path)}
+        decline_path = ROOT/'outputs/last_decline/plays.csv'
+        self.last_decline = ({(r['gameId'],r['playId']):r for r in read_csv(decline_path)}
+                             if decline_path.is_file() else {})
         self.roles = {}
         for r in read_csv(self.data_dir/'pffScoutingData.csv'):
             key=r['gameId'],r['playId']
@@ -52,7 +56,7 @@ class Repository:
     def get_play(self, game_id, play_id):
         key=game_id,play_id
         if key not in self.cohort:
-            raise KeyError('This play is not in the 4,465 eligible completed-pass samples')
+            raise KeyError('This play is not in the eligible completed-pass cohort')
         cohort=self.cohort[key]
         play=self.plays[key]
         _,rows=next(iter_plays(self.data_dir/'tracking'/f'tracking_{game_id}.csv',int(play_id)))
@@ -78,7 +82,7 @@ class Repository:
                                                      s=number(r.get('s')) or 0))
         assert all(f in frames for f in range(start,end))
         decline=self.last_decline.get(key,{})
-        suggested=decline.get('topAttractorIds','').split(';')[0]
+        suggested=decline.get('topAttractorIds','').split(';')[0] or cohort.get('preferredMover','')
         if not suggested or suggested not in metadata:
             suggested=next(p for p,m in metadata.items() if m['route'] and p!=cohort['receiverId'])
         return dict(gameId=game_id,playId=play_id,description=play['playDescription'],
@@ -148,8 +152,13 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port',type=int,default=8765)
     parser.add_argument('--open-browser',action='store_true')
+    parser.add_argument('--data-dir',type=Path,help='Directory containing games.csv, plays.csv and tracking/')
+    parser.add_argument('--cohort',type=Path,help='Override the bundled or locally generated receiver cohort CSV')
     args=parser.parse_args()
-    repository=Repository()
+    try:
+        repository=Repository(args.data_dir,args.cohort)
+    except FileNotFoundError as error:
+        raise SystemExit(f'Missing input: {error.filename}. Download the source dataset and use --data-dir PATH; see README.md.')
     try:
         server=ThreadingHTTPServer(('127.0.0.1',args.port),make_handler(repository))
     except OSError as error:

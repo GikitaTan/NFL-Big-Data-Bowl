@@ -14,6 +14,7 @@ import re
 
 from attention_transfer import ExcludedPlay, event_frame, write_csv
 from defensive_attention import frame_attention, iter_plays, read_csv, valid_position
+from project_paths import data_directory, result_file
 
 
 # Official Saints confirmation of the historical surname used in 2021 play-by-play:
@@ -109,7 +110,7 @@ def extract(data_dir, dest, existing=None):
         if key in plays:
             roles[key][r['nflId']] = r['pff_role']
     validated = {(r['gameId'], r['playId']): r['targetId']
-                 for r in read_csv(Path(__file__).parent/'outputs/attention_transfer/plays.csv')}
+                 for r in read_csv(result_file('outputs/attention_transfer/plays.csv','catch_validation.csv'))}
     records = list(existing or [])
     retained = {(r['gameId'],r['playId']) for r in records}
     seen, excluded = set(), []
@@ -178,7 +179,7 @@ def extract(data_dir, dest, existing=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--data-dir', type=Path, default=Path(__file__).parent/'nfl-big-data-bowl-regional-event-data-main/data')
+    parser.add_argument('--data-dir', type=Path, default=data_directory())
     parser.add_argument('--output-dir', type=Path, default=Path('outputs/receiver_trends'))
     parser.add_argument('--reuse-series', action='store_true')
     parser.add_argument('--resume-extraction', action='store_true', help='Keep valid cached series and retry exclusions')

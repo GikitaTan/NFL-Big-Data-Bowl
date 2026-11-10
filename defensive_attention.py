@@ -6,6 +6,8 @@ from dataclasses import dataclass
 import math
 from pathlib import Path
 
+from project_paths import data_directory
+
 
 @dataclass(frozen=True)
 class AttentionConfig:
@@ -152,7 +154,7 @@ FIELDS = ["gameId", "playId", "frameId", "time", "defenderId", "receiverId",
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--data-dir", type=Path, default=Path(__file__).parent / "nfl-big-data-bowl-regional-event-data-main/data")
+    parser.add_argument("--data-dir", type=Path, default=data_directory())
     parser.add_argument("--game-id", required=True)
     parser.add_argument("--play-id", type=int)
     parser.add_argument("--output", type=Path, default=Path("outputs/defensive_attention.csv"))

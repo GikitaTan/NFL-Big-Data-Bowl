@@ -1,5 +1,0 @@
-﻿gameId,playId,Target,targetId,targetName,snapFrame,t0Frame,t1Frame,releaseFrame,catchFrame,snapEvent,releaseEvent,catchDistanceYards,nearestGapYards,candidateCount,defenderCount,missingHeadingEndpoints,attractorId,attractorName,Attractor,Transfer
-2021090900,3909,RB,44816,Leonard Fournette,6,9,27,28,33,ball_snap,pass_forward,1.7755280904564699,0.43564806715739834,5,11,0,35634,Antonio Brown,WR,0.048396674182104596
-2021090900,3909,RB,44816,Leonard Fournette,6,9,27,28,33,ball_snap,pass_forward,1.7755280904564699,0.43564806715739834,5,11,0,41233,Mike Evans,WR,0.06606708593241775
-2021090900,3909,RB,44816,Leonard Fournette,6,9,27,28,33,ball_snap,pass_forward,1.7755280904564699,0.43564806715739834,5,11,0,44896,Chris Godwin,WR,0.035027312367811723
-2021090900,3909,RB,44816,Leonard Fournette,6,9,27,28,33,ball_snap,pass_forward,1.7755280904564699,0.43564806715739834,5,11,0,47991,Scott Miller,WR,0.021287289805488708

@@ -1,6 +1,10 @@
-# Raw data directories and downloaded dataset archive
-data/
-nfl-big-data-bowl-regional-event-data-main.zip
+# Full source datasets are downloaded separately; keep them local.
+/data/
+/nfl-big-data-bowl-regional-event-data-main/
+*.zip
+
+# Reproducible generated analyses; publish selected artifacts under examples/ and docs/.
+/outputs/
 
 # Python caches and local environments
 __pycache__/
@@ -8,6 +12,10 @@ __pycache__/
 .venv/
 venv/
 .pytest_cache/
+.coverage
+htmlcov/
+.matplotlib/
+*.log
 
 # macOS metadata
 .DS_Store

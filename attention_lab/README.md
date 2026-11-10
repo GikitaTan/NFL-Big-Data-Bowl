@@ -39,4 +39,4 @@ The backend provides a read-only local data API. The interface and attention/tra
 python3 -B -m unittest discover -s tests -v
 ```
 
-`static/core.js` contains pure calculations without DOM dependencies. It has been checked against the Python model, including candidate normalization, branch continuity, both offensive directions, boundary stops, and simulation horizons. The original verification covered 28 Python tests and 1,257 JavaScript assertions. Browser checks covered game/play selection, rerouting non-route players, direct player dragging, comparison rendering, and desktop/mobile layouts.
+`static/core.js` contains pure calculations without DOM dependencies. It has been checked against the Python model, including candidate normalization, branch continuity, both offensive directions, boundary stops, and simulation horizons. Verification covers 32 Python tests and 1,257 JavaScript assertions. Browser checks covered game/play selection, rerouting non-route players, direct player dragging, comparison rendering, and desktop/mobile layouts.

@@ -1,0 +1,20 @@
+name: Tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Python unit tests (raw-data integration tests skip when data is absent)
+        run: python -B -m unittest discover -s tests -v
+      - name: JavaScript model and trajectory checks
+        run: node tools/verify_core.mjs
