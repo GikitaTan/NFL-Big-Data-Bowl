@@ -1,0 +1,142 @@
+{
+  "audit": {
+    "tracking_plays": 8557,
+    "excluded_missing_event": 43,
+    "excluded_penalty_play": 631,
+    "excluded_not_pass_attempt": 992,
+    "excluded_incomplete_or_unusual_personnel": 24,
+    "included": 6867
+  },
+  "split": {
+    "train_weeks_1_6": {
+      "plays": 5287,
+      "games": 94
+    },
+    "validation_week_7": {
+      "plays": 737,
+      "games": 13
+    },
+    "test_week_8": {
+      "plays": 843,
+      "games": 15
+    }
+  },
+  "validation": {
+    "context_baseline": [
+      {
+        "config": {
+          "max_iter": 150,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 40,
+          "l2_regularization": 10
+        },
+        "metrics": {
+          "MAE": 7.015649809219783,
+          "RMSE": 9.843812822865338,
+          "R2": 0.02001950069227476,
+          "bias": 0.36972278137578407
+        }
+      },
+      {
+        "config": {
+          "max_iter": 250,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 40,
+          "l2_regularization": 20
+        },
+        "metrics": {
+          "MAE": 7.092450714173197,
+          "RMSE": 9.901102361758582,
+          "R2": 0.008579624120250817,
+          "bias": 0.49704030876795036
+        }
+      },
+      {
+        "config": {
+          "max_iter": 150,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 60,
+          "l2_regularization": 40
+        },
+        "metrics": {
+          "MAE": 6.960784946887315,
+          "RMSE": 9.810881769516534,
+          "R2": 0.026565299637867912,
+          "bias": 0.34043933587567066
+        }
+      }
+    ],
+    "tracking_model": [
+      {
+        "config": {
+          "max_iter": 150,
+          "max_leaf_nodes": 7,
+          "min_samples_leaf": 40,
+          "l2_regularization": 10
+        },
+        "metrics": {
+          "MAE": 6.811934932846094,
+          "RMSE": 9.691428252552676,
+          "R2": 0.05012532405911607,
+          "bias": 0.46178399839829415
+        }
+      },
+      {
+        "config": {
+          "max_iter": 250,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 40,
+          "l2_regularization": 20
+        },
+        "metrics": {
+          "MAE": 6.893639832554782,
+          "RMSE": 9.899225793239898,
+          "R2": 0.00895539883497054,
+          "bias": 0.5311999272653574
+        }
+      },
+      {
+        "config": {
+          "max_iter": 150,
+          "max_leaf_nodes": 15,
+          "min_samples_leaf": 60,
+          "l2_regularization": 40
+        },
+        "metrics": {
+          "MAE": 6.771592998435565,
+          "RMSE": 9.773892778720091,
+          "R2": 0.03389155071421046,
+          "bias": 0.38249347315711063
+        }
+      }
+    ]
+  },
+  "test": {
+    "mean_baseline": {
+      "MAE": 6.723086302476926,
+      "RMSE": 9.17495999502126,
+      "R2": -0.006428325415155811,
+      "bias": 0.7332662233627775
+    },
+    "context_baseline": {
+      "MAE": 6.497597228165819,
+      "RMSE": 8.966417816720051,
+      "R2": 0.038802932533070544,
+      "bias": 0.7132142415924994
+    },
+    "tracking_model": {
+      "MAE": 6.280684246141537,
+      "RMSE": 8.778211961252076,
+      "R2": 0.0787306576039597,
+      "bias": 0.42708308729004496
+    }
+  },
+  "selection_metric": "validation RMSE",
+  "target": "prePenaltyPlayResult",
+  "prediction_time": "pass_forward frame; no later tracking",
+  "feature_count": 112,
+  "test_rmse_gain_over_context_95pct_game_bootstrap": [
+    -0.0780323848714472,
+    0.46864555515485967
+  ]
+}
